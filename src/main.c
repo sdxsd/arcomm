@@ -10,7 +10,7 @@ void inter_shell(int arduino_fd) {
     while (TRUE) {
         buf = (char *)calloc(sizeof(char), MAX_BUFFER);
         if (!buf) {
-            printf("ERROR: BUFFER ALLOCATION FAILED\n");
+            perror(ERROR);
             exit(-1);
         }
         getline(&buf, &buf_size, stdin);
