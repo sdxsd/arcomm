@@ -2,7 +2,7 @@
 Simple tool for sending data to an Arduino over the serial port. 
 
 ## Installation
-***ONLY COMPATIBLE WITH GNU + LINUX SYSTEMS***
+***DEFAULT MODE COMPATIBLE ONLY WITH GNU + LINUX SYSTEMS***
 
 The installation is relatively simple:
 ```
