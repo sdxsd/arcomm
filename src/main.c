@@ -1,32 +1,27 @@
 #include "../arcomm.h"
 
 void inter_shell(int arduino_fd) {
-    int c;
+    char *buf;
+    size_t buf_size;
     int input;
     size_t iter;
-    char *buf;
 
     iter = 0;
+    buf_size = MAX_BUFFER;
     input = TRUE;
     printf(":: ARCOMM RUNNING INTERACTIVELY ::\n");
     printf(":: MAX BUFFER = %d ::\n", MAX_BUFFER);
-    printf(":: END INPUT WITH EOF\n");
+    printf(":: END INPUT WITH EMPTY NEWLINE\n");
     while (input) {
         buf = (char *)calloc(sizeof(char), MAX_BUFFER);
-        while (*buf)
-            *buf++ = '\0';
         if (!buf) {
             printf("ERROR: BUFFER ALLOCATION FAILED\n");
             exit(-1);
         }
-        while ((c = getchar()) && iter < MAX_BUFFER) {
-            if (c == EOF)
-                input = FALSE;
-            buf[iter] = c;
-            iter++;
-        }
-        buf[iter++] = 0;
-        printf("\n%ld BYTES SENT TO ARDUINO\n", write(arduino_fd, buf, strlen(buf)));
+        getline(&buf, &buf_size, stdin);
+        if (!strcmp(buf, "\n"))
+            input = FALSE;
+        printf("\n%ld BYTES SENT TO ARDUINO\n", write(arduino_fd, buf, buf_size));
         free(buf);
     }
     return;
@@ -46,6 +41,10 @@ int main(int argc, char *argv[]) {
             printf("%s\n", USAGE);
             return (0);
         }
+    }
+    else {
+        printf("%s\n", USAGE);
+        return (0);
     }
     arduino_fd = open(ARDUINO_DEVICE, O_WRONLY);
     if (arduino_fd == -1) {

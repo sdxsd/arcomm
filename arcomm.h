@@ -13,7 +13,7 @@
 # include <fcntl.h>
 
 const char *USAGE = "arcomm [-s] [content] / arcomm -i";
-const char *ARDUINO_DEVICE = "file";
+const char *ARDUINO_DEVICE = "/dev/ttyACM0";
 
 
 #endif
