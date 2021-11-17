@@ -55,7 +55,6 @@ int main(int argc, char *argv[]) {
             perror(ERROR);
             return (-1);
         }
-        usleep(DELAY);
         close(arduino_fd);
     }
     return (0);

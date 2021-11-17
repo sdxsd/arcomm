@@ -1,11 +1,25 @@
 #ifndef ARCOMM_H
 # define ARCOMM_H
-# define VERSION 0.1
+
+# ifdef __APPLE__
+#  define ARDUINO_DEVICE "/dev/cu.usbmodem101"
+#  define STTY_EXEC "stty -F /dev/cu.usbmodem101"
+# endif
+
+# ifdef __linux__
+#  define ARDUINO_DEVICE "/dev/ttyACM0"
+#  define STTY_EXEC "stty -F /dev/ttyACM0 -hupcl"
+# endif
+
+# ifndef ARDUINO_DEVICE
+#  define ARDUINO_DEVICE NULL
+# endif
+
 # define INTERACTIVE 0
 # define TRUE 1
 # define FALSE 0
-# define DELAY 1024
 # define MAX_BUFFER 255
+
 # include <string.h>
 # include <stdio.h>
 # include <unistd.h>
@@ -13,8 +27,6 @@
 # include <fcntl.h>
 
 const char *USAGE = "arcomm [-s] [content] / arcomm -i";
-const char *ARDUINO_DEVICE = "/dev/ttyACM0";
-const char *STTY_EXEC = "stty -F /dev/ttyACM0 -hupcl";
 const char *ERROR = "FATAL ERROR";
 
 #endif
