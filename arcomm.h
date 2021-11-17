@@ -15,5 +15,6 @@
 const char *USAGE = "arcomm [-s] [content] / arcomm -i";
 const char *ARDUINO_DEVICE = "/dev/ttyACM0";
 const char *STTY_EXEC = "stty -F /dev/ttyACM0 -hupcl";
+const char *ERROR = "FATAL ERROR";
 
 #endif
