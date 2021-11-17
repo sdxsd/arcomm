@@ -7,6 +7,7 @@ void inter_shell(int arduino_fd) {
     buf_size = MAX_BUFFER;
     printf(":: ARCOMM RUNNING INTERACTIVELY ::\n");
     printf(":: END INPUT WITH EMPTY NEWLINE\n");
+    write(arduino_fd, "0", 1);
     while (TRUE) {
         buf = (char *)calloc(sizeof(char), MAX_BUFFER);
         if (!buf) {
@@ -51,11 +52,11 @@ int main(int argc, char *argv[]) {
     if (mode)
         inter_shell(arduino_fd);
     else {
+        write(arduino_fd, "0", 1);
         if (!write(arduino_fd, to_send, strlen(to_send))) {
             perror(ERROR);
             return (-1);
         }
-        close(arduino_fd);
     }
     return (0);
 }

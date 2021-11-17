@@ -3,7 +3,7 @@
 
 # ifdef __APPLE__
 #  define ARDUINO_DEVICE "/dev/cu.usbmodem101"
-#  define STTY_EXEC "stty -F /dev/cu.usbmodem101"
+#  define STTY_EXEC "stty -f /dev/cu.usbmodem101 cs8 9600 ignbrk -brkint -icrnl -imaxbel -opost -onlcr -isig -icanon -iexten -echo -echoe -echok -echoctl -echoke noflsh -ixon -crtscts"
 # endif
 
 # ifdef __linux__
