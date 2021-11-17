@@ -32,11 +32,14 @@ int main(int argc, char *argv[]) {
     int  arduino_fd;
     char *to_send;
 
-    if (argc > 2) {
+    if (argc > 1) {
         if (!strcmp(argv[1], "-i"))
             mode = 1;
-        else if (!strcmp(argv[1], "-s"))
+        else if (!strcmp(argv[1], "-s") && argc > 2)
+        {
             to_send = argv[2];
+            system("stty -F /dev/ttyACM0 -hupcl");
+        }
         else {
             printf("%s\n", USAGE);
             return (0);
